@@ -32,6 +32,14 @@ export class DashboardComponent implements OnInit {
     // alert("deposit clicked")
   }
   withdraw(){
-    alert("withdraw clicked")
+    // alert("withdraw clicked")
+    var acno=this.acno1
+    var pswd=this.pswd1
+    var amount=this.amount1
+
+    let result =this.ds.withdraw(acno,pswd,amount)
+    if(result){
+      alert(amount+"debitted. NEW BALANCE IS : " + result)
   }
+}
 }

@@ -68,4 +68,28 @@ if(password == db[acno]["password"]){
     return false
   }
 }
+withdraw(acno:any,password:any,amt:any){
+  var amount = parseInt(amt)
+  let db=this.users
+  if(acno in db){
+if(password == db[acno]["password"]){
+
+  if(db[acno]["balance"] > amount){
+    db[acno]["balance"] = db[acno]["balance"]- amount
+return db[acno]["balance"]
+
   }
+
+  else
+  {
+    alert("incorrect password!!")
+    return false
+  }
+}
+else
+{
+  alert("account doesnt exist!!")
+  return false
+}
+}
+}}

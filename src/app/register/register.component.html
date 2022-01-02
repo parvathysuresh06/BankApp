@@ -14,14 +14,15 @@
 
             </div>
             <div class="card-body">
-                <form (ngSubmit)="register()">
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
                         <!-- <input type="password" class="form-control" #pswd (change)="acnoChange($event)"placeholder="password"   id="login_password" required> -->
-                        <input type="text" class="form-control" name="uname" [(ngModel)]="uname" placeholder="username" id="login_uname"
-                            required>
+                        <!-- <input type="text" class="form-control" name="uname" [(ngModel)]="uname" placeholder="username" id="login_uname"
+                            required> -->
+                            <input type="text" class="form-control" name="uname" formControlName="uname" placeholder="user name"  id="register_uname" required>         
 
                     </div>
                     <div class="input-group form-group">
@@ -29,8 +30,9 @@
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                         <!-- <input type="text" class="form-control"  #acno (change)="acnoChange($event)" placeholder="account number" id="login_accno" required> -->
-                        <input type="text" class="form-control" name="acnoo" [(ngModel)]="acno" placeholder="accno no please" id="login_accno"
-                            required>
+                        <!-- <input type="text" class="form-control" name="acnoo" [(ngModel)]="acno" placeholder="accno no please" id="login_accno"
+                            required> -->
+                            <input type="password" class="form-control" name="acno"  formControlName="acno" placeholder="accno please" id="regis_password" required>        
 
                     </div>
                     <div class="input-group form-group">
@@ -38,8 +40,9 @@
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
                         <!-- <input type="password" class="form-control" #pswd (change)="acnoChange($event)"placeholder="password"   id="login_password" required> -->
-                        <input type="password" class="form-control" name="pswdd" [(ngModel)]="pswd" placeholder="password" id="login_password"
-                            required>
+                        <!-- <input type="password" class="form-control" name="pswdd" [(ngModel)]="pswd" placeholder="password" id="login_password"
+                            required> -->
+                            <input type="text" class="form-control" name="amount" formControlName ="amount" placeholder="amount"  id="regis_amount" required>                           
 
                     </div>
 
