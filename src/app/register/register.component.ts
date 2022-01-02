@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-register',
@@ -10,11 +12,24 @@ export class RegisterComponent implements OnInit {
   acno=""
   pswd=""
 
-  constructor() { }
+  constructor(private ds:DataService,private router:Router) { }
 
   ngOnInit(): void {
   }
 register(){
-  alert("regiterclicked")
+  var uname=this.uname
+  var acno=this.acno
+  var pswd=this.pswd
+
+  let result=this.ds.register(acno,pswd,uname)
+  if(result){
+    alert("account registered sucessfully")
+    this.router.navigateByUrl("")
+  }
+ else
+ {
+  alert("already registered")
+
+ }
 }
 }

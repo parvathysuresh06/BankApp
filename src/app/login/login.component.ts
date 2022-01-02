@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +12,9 @@ export class LoginComponent implements OnInit {
   // accno="type here"
   acno=""
   pswd=""
-  users:any={
-    1000:{acno:1000,uname:"neeer",password:"1000",balance:2000},
-    1001:{acno:1000,uname:"ter",password:"1001",balance:2000},
-    1002:{acno:1002,uname:"per",password:"1002",balance:2000},
+  
 
-  }
-
-  constructor(private router:Router) { }
+  constructor(private router:Router,private ds:DataService) { }
 
   ngOnInit(): void {
   }
@@ -34,24 +30,18 @@ pwdChange(event:any){
   this.pswd=event.target.value
   console.log(this.pswd); 
   }
+
 login(){
   var acno=this.acno
   var password=this.pswd
 
-  let database=this.users
+  let result=this.ds.login(acno,password) //call login which is iinside the dataservice
 
-  if(acno in database){
-    if(password ==database[acno]["password"]){
-alert("sucess")
+  
+  if(result){
+    alert("sucess")
 this.router.navigateByUrl('dashboard')
-
-    }
-    else{
-      alert("incorrect")
-    }
   }
-else{
-  alert("invalid acno")
-}
+
 }}
 
