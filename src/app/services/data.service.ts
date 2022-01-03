@@ -4,92 +4,125 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataService {
-  
-  users:any={
-    1000:{acno:1000,uname:"nimo",password:"1000",balance:2000},
-    1001:{acno:1000,uname:"teran",password:"1001",balance:2000},
-    1002:{acno:1002,uname:"peri",password:"1002",balance:2000},
+  currentUserName:any
 
+
+  users: any = {
+    1000: { acno: 1000, uname: "aswathy", pswd: "zero", balance: 6000 },
+    1001: { acno: 1001, uname: "vishnu", pswd: "one", balance: 6000 },
+    1002: { acno: 1002, uname: "ram", pswd: "two", balance: 8000 },
   }
 
   constructor() { }
-  register(acno:any,password:any,uname:any){
-    let db=this.users
-    if(acno in db){
+
+  //to save to localstorage
+  saveDetails(){
+    if(this.users){
+      localStorage.setItem("userDb",JSON.stringify(this.users))
+    }
+    if(this.currentUserName){
+      localStorage.setItem("cUserName",JSON.stringify(this.currentUserName))
+    }
+  }
+  //to get
+
+  register(acno: any, pswd: any, uname: any) {
+
+    let db = this.users
+
+    if (acno in db) {
       return false
     }
-    else{
-      db[acno]={
+    else {
+      db[acno] = {
         acno,
-        uname,
-        password,
-        balance:0
+         uname,
+          pswd,
+           balance: 0
       }
-      // console.log(db);
-      return true
-
-    } }
-    login(acno:any,password:any){
-      let database=this.users
-
-  if(acno in database){
-    if(password == database[acno]["password"]){
+      console.log(db)
+      this.saveDetails()
       return true
     }
-    else{
-      alert("incorrect password")
+  }
+
+
+  login(acno: any, password: any) {
+
+    let database = this.users
+
+    if (acno in database) {
+      if (password == database[acno]["pswd"]) {
+        this.currentUserName=database[acno]["uname"]
+        this.saveDetails()
+         return true
+      }
+      else {
+        alert("incorrect password")
+        return false
+      }
+    }
+    else {
+      alert("invalid account number")
       return false
     }
   }
-  else{
-    alert("invalid acno")
-    return false
-  }
-    }
 
-  deposit(acno:any,password:any,amt:any){
+  deposit(acno: any, password: any, amt: any) {
+
     var amount = parseInt(amt)
-    let db=this.users
-    if(acno in db){
-if(password == db[acno]["password"]){
-  db[acno]["balance"] = db[acno]["balance"]+ amount
-  return db[acno]["balance"]
 
-}
-    else
-    {
-      alert("incorrect password!!")
+    let db = this.users
+
+    if (acno in db) {
+      if (password == db[acno]["pswd"]) {
+        db[acno]["balance"] = db[acno]["balance"] + amount
+        this.saveDetails()
+        return db[acno]["balance"]
+      }
+      else {
+        alert("incorrect password")
+        return false
+      }
+
+    }
+    else {
+      alert("account does not exist")
       return false
     }
   }
-  else
-  {
-    alert("account doesnt exist!!")
-    return false
-  }
-}
-withdraw(acno:any,password:any,amt:any){
-  var amount = parseInt(amt)
-  let db=this.users
-  if(acno in db){
-if(password == db[acno]["password"]){
 
-  if(db[acno]["balance"] > amount){
-    db[acno]["balance"] = db[acno]["balance"]- amount
-return db[acno]["balance"]
+
+  withdraw(acno: any, password: any, amt: any) {
+
+    var amount = parseInt(amt)
+
+    let db = this.users
+
+    if (acno in db) {
+
+      if (password == db[acno]["pswd"]) {
+
+        if (db[acno]["balance"] > amount) {
+          db[acno]["balance"] = db[acno]["balance"] - amount
+          this.saveDetails()
+          return db[acno]["balance"]
+        }
+         else {
+          alert("insufficient balance")
+          return false
+        }
+
+
+      } else {
+        alert("incorrect password")
+        return false
+      }
+    } else {
+      alert("account doesnot exist...")
+      return false
+    }
 
   }
 
-  else
-  {
-    alert("incorrect password!!")
-    return false
-  }
 }
-else
-{
-  alert("account doesnt exist!!")
-  return false
-}
-}
-}}

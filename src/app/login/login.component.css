@@ -1,3 +1,8 @@
-p{
+h2{
+    text-align: center;
+    color: chartreuse;
+}
+
+.error{
     color: white;
 }
